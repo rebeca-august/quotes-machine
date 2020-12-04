@@ -1,4 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+
+export function getColor() {
+  return (
+    'hsl(' +
+    360 * Math.random() +
+    ',' +
+    (25 + 70 * Math.random()) +
+    '%,' +
+    (85 + 10 * Math.random()) +
+    '%)'
+  )
+}
 
 const QuoteMachine = () => {
   const [quote, setQuote] = useState({})
@@ -19,11 +31,19 @@ const QuoteMachine = () => {
     }
   }
 
+  useEffect(() => {
+    fetchQuote()
+  }, [])
+
   return (
-    <div>
+    <div style={{ backgroundColor: getColor() }} className="container">
       <p>{quote.text}</p>
       <span>{quote.author}</span>
-      <button></button>
+      <button onClick={fetchQuote} className="new-quote-bnt">
+        New Quote
+      </button>
     </div>
   )
 }
+
+export default QuoteMachine
